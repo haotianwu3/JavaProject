@@ -46,7 +46,7 @@ public class Demo1 {
 //randomly generate 8*8 gems to fill up the whole board yuyue
         Gem gemBlue = new Gem("/assets/gemBlue.png", 2, 2);
         Gem gemRed = new Gem("/assets/gemRed.png", 3, 3);
-
+        //Yu yue is shabi~
         // board dimension can be obtained from console
         int width = console.getBoardWidth();
         int height = console.getBoardHeight();
