@@ -42,7 +42,7 @@ public class Demo1 {
     }
 
     public void startGame() {
-
+        //randomly generate 8*8 gems to fill up the whole board
         Gem gemBlue = new Gem("/assets/gemBlue.png", 2, 2);
         Gem gemRed = new Gem("/assets/gemRed.png", 3, 3);
 
@@ -59,6 +59,7 @@ public class Demo1 {
             // get whatever inputs
             Point point = console.getClickedPoint();
             if (point != null) {
+                // determine what is the gem under the click point, toggle it when found
                 if (gemBlue.isAt(point)) {
                     gemBlue.toggleFocus();
                 } else if (gemRed.isAt(point)) {
@@ -69,14 +70,14 @@ public class Demo1 {
             // refresh at the specific rate, default 25 fps
             if (console.shouldUpdate()) {
                 console.clear();
-                
+                //change this "00:05:32" to a variable from zero by using Timer.java
                 console.drawText(60, 150, "[TIME]", new Font("Helvetica", Font.BOLD, 20), Color.white);
                 console.drawText(60, 180, "00:05:32", new Font("Helvetica", Font.PLAIN, 20), Color.white);
-                
+                // change the "220" score by a variable that accumulates from 0
                 console.drawText(60, 250, "[SCORE]", new Font("Helvetica", Font.BOLD, 20), Color.white);
                 console.drawText(60, 280, "220", new Font("Helvetica", Font.PLAIN, 20), Color.white);
                 
-                gemBlue.display();
+                gemBlue.display();//display the current position of this gem
                 gemRed.display();
 
                 console.update();
