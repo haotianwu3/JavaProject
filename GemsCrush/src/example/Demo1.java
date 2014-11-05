@@ -42,7 +42,8 @@ public class Demo1 {
     }
 
     public void startGame() {
-        //randomly generate 8*8 gems to fill up the whole board
+        
+//randomly generate 8*8 gems to fill up the whole board yuyue
         Gem gemBlue = new Gem("/assets/gemBlue.png", 2, 2);
         Gem gemRed = new Gem("/assets/gemRed.png", 3, 3);
 
