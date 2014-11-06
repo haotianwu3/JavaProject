@@ -61,7 +61,11 @@ public class Gem {
     public void setPic(String file) {
         this.pic = new ImageIcon(this.getClass().getResource(file)).getImage();
     }
-
+    //set picture by image parameter
+    public void setPic(Image pic){
+        this.pic = pic;
+    }
+    
     public int getPosX() {
         return posX;
     }
