@@ -30,6 +30,7 @@ public class Demo1 {
     // create the game console for drawing         
     // singleton, always return the same instance
     private GameConsole console = GameConsole.getInstance();
+    private String score="0";
 
     public Demo1() {
         // make the console visible
@@ -117,7 +118,8 @@ public class Demo1 {
                 console.drawText(60, 180, timeDisplay, new Font("Helvetica", Font.PLAIN, 20), Color.white);
                 // change the "220" score by a variable that accumulates from 0
                 console.drawText(60, 250, "[SCORE]", new Font("Helvetica", Font.BOLD, 20), Color.white);
-                console.drawText(60, 280, "220", new Font("Helvetica", Font.PLAIN, 20), Color.white);
+              
+                console.drawText(60, 280, score, new Font("Helvetica", Font.PLAIN, 20), Color.white);
                 
                 
                 for(int i=0;i<8;i++)
@@ -149,5 +151,10 @@ public class Demo1 {
         return false;
     }
     
-    
+    private String scoreAdd(int x){
+        int score1=Integer.parseInt(score);
+        score1=score1+10*x;
+       score = Integer.toString(score1);
+       return score;
+    }
 }
