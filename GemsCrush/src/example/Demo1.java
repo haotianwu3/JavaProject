@@ -48,20 +48,31 @@ public class Demo1 {
         //Blue = 1, Green = 2, Orange = 3, Purple = 4, Red = 5, White = 6, Yellow = 7
         Random rand = new Random();
         int picNum = rand.nextInt(7)+1;
+        boolean upSame = false;
+        boolean leftSame = false;
         Gem gem[][]=new Gem[8][8];
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
                 gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
                 //needed to be modified here
-                while(j-1>0 && gem[i][j].getPic()==gem[i][j-1].getPic() ){
-                    if(gem[i][j-1].getPic()==gem[i][j-2].getPic())
-                         gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                }    
-             
-                while(i-1>0 && gem[i][j].getPic()==gem[i-1][j].getPic()){
-                    if(gem[i-1][j].getPic()==gem[i-2][j].getPic())
-                        gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                }  
+                if(i == 0 && j>=1){
+                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
+                }
+                if(i >= 1 && j == 0){
+                    upSame = checkUp(gem[i][j], gem[i-1][j]);
+                }
+                if(i >= 1 && j >= 1){
+                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
+                    upSame = checkUp(gem[i][j], gem[i-1][j]);
+                }
+                while(leftSame){
+                    gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
+                }
+                while(upSame){
+                    gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                    upSame = checkUp(gem[i][j], gem[i-1][j]);
+                }
             }
         }
         
@@ -123,6 +134,19 @@ public class Demo1 {
             // for fps at 25, it should not exceed 40ms
             console.idle(10);
         }
+    }
+    private boolean checkLeft(Gem gem1, Gem gem2) {
+        if(gem1.getPic() == gem2.getPic()){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkUp(Gem gem1, Gem gem2) {
+        if(gem1.getPic() == gem2.getPic()){
+            return true;
+        }
+        return false;
     }
     
     
