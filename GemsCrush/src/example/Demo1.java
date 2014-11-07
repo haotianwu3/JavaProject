@@ -39,25 +39,32 @@ public class Demo1 {
     public static void main(String[] args) {
         // a more OO approach to write the main method
         Demo1 game = new Demo1();
-        game.startGame();
+    
+       game.startGame();
     }
 
     public void startGame() {
-        
-        //randomly generate 8*8 gems to fill up the whole board 
+//randomly generate 8*8 gems to fill up the whole board 
         //Blue = 1, Green = 2, Orange = 3, Purple = 4, Red = 5, White = 6, Yellow = 7
         Random rand = new Random();
         int picNum = rand.nextInt(7)+1;
-        Gem gem00 = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0, 0);
-        Gem gem01 = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0, 1);
-        Gem gem02 = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0, 2);
-        Gem gem03 = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0, 3);
-        Gem gem04 = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0, 4);
-        Gem gem05 = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0, 5);
-        Gem gem06 = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0, 6);
-        Gem gem07 = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0, 7);
-        Gem gemBlue = new Gem("/assets/"+ picNum + ".png", 2, 2);
-        Gem gemRed = new Gem("/assets/" + picNum + ".png", 3, 3);
+         Gem gem[][]=new Gem[8][8];
+         for(int i=0;i<8;i++){
+             for(int j=0;j<8;j++){
+                 gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                 while(j-1>0 && gem[i][j].pic==gem[i][j-1].pic )
+                    if(gem[i][j-1].pic==gem[i][j-2].pic)
+                         gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                    
+             
+               while(i-1>0 && gem[i][j].pic==gem[i-1][j].pic)
+                  if(gem[i-1][j].pic==gem[i-2][j].pic)
+                      gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                  
+         }
+         }
+        
+      //检查是否左右上下相同
         
         // board dimension can be obtained from console
         int width = console.getBoardWidth();
@@ -77,15 +84,16 @@ public class Demo1 {
             Point point = console.getClickedPoint();
             if (point != null) {
                 // determine what is the gem under the click point, toggle it when found
-                if (gemBlue.isAt(point)) {
+             /*  if (gemBlue.isAt(point)) {
                     gemBlue.toggleFocus();
                 } else if (gemRed.isAt(point)) {
                     gemRed.toggleFocus();
                 } 
+             */
                 int position_x = (point.x - 240)/65;
                 int position_y = (point.y - 40)/65;
                 int position_xy = position_x*10 + position_y;
-                switch(position_xy){
+            /*   switch(position_xy){
                     case 0:{
                         gem00.toggleFocus();
                         break;
@@ -118,7 +126,7 @@ public class Demo1 {
                         gem07.toggleFocus();
                         break;
                     }
-                }
+                }*/
                 
             }
 
@@ -133,17 +141,13 @@ public class Demo1 {
                 console.drawText(60, 250, "[SCORE]", new Font("Helvetica", Font.BOLD, 20), Color.white);
                 console.drawText(60, 280, "220", new Font("Helvetica", Font.PLAIN, 20), Color.white);
                 
-                gemBlue.display();//display the current position of this gem
-                gemRed.display();
-                gem00.display();
-                gem01.display();
-                gem02.display();
-                gem03.display();
-                gem04.display();
-                gem05.display();
-                gem06.display();
-                gem07.display();
-
+                
+                for(int i=0;i<8;i++)
+                    for(int j=0;j<8;j++)
+                        gem[i][j].display();
+                   
+               
+       
                 console.update();
             }
 
@@ -153,4 +157,6 @@ public class Demo1 {
             console.idle(10);
         }
     }
+    
+    
 }
