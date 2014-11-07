@@ -48,21 +48,22 @@ public class Demo1 {
         //Blue = 1, Green = 2, Orange = 3, Purple = 4, Red = 5, White = 6, Yellow = 7
         Random rand = new Random();
         int picNum = rand.nextInt(7)+1;
-         Gem gem[][]=new Gem[8][8];
-         for(int i=0;i<8;i++){
-             for(int j=0;j<8;j++){
-                 gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                 while(j-1>0 && gem[i][j].pic==gem[i][j-1].pic )
-                    if(gem[i][j-1].pic==gem[i][j-2].pic)
+        Gem gem[][]=new Gem[8][8];
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                //needed to be modified here
+                while(j-1>0 && gem[i][j].getPic()==gem[i][j-1].getPic() ){
+                    if(gem[i][j-1].getPic()==gem[i][j-2].getPic())
                          gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                    
+                }    
              
-               while(i-1>0 && gem[i][j].pic==gem[i-1][j].pic)
-                  if(gem[i-1][j].pic==gem[i-2][j].pic)
-                      gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                  
-         }
-         }
+                while(i-1>0 && gem[i][j].getPic()==gem[i-1][j].getPic()){
+                    if(gem[i-1][j].getPic()==gem[i-2][j].getPic())
+                        gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                }  
+            }
+        }
         
       //检查是否左右上下相同
         
@@ -92,41 +93,7 @@ public class Demo1 {
              */
                 int position_x = (point.x - 240)/65;
                 int position_y = (point.y - 40)/65;
-                int position_xy = position_x*10 + position_y;
-            /*   switch(position_xy){
-                    case 0:{
-                        gem00.toggleFocus();
-                        break;
-                    }
-                    case 1:{
-                        gem01.toggleFocus();
-                        break;
-                    }
-                    case 2:{
-                        gem02.toggleFocus();
-                        break;
-                    }
-                    case 3:{
-                        gem03.toggleFocus();
-                        break;
-                    }
-                    case 4:{
-                        gem04.toggleFocus();
-                        break;
-                    }
-                    case 5:{
-                        gem05.toggleFocus();
-                        break;
-                    }
-                    case 6:{
-                        gem06.toggleFocus();
-                        break;
-                    }
-                    case 7:{
-                        gem07.toggleFocus();
-                        break;
-                    }
-                }*/
+                gem[position_x][position_y].toggleFocus();
                 
             }
 
