@@ -90,23 +90,42 @@ public class Demo1 {
         Timer gameTimer = new Timer();
         gameTimer.start();
         String timeDisplay = new String();
+        boolean firstClick = false;
+        boolean secondClick = false;
+        int position_x1 = 0;
+        int position_y1 = 0;
+        int position_x2 = 0;
+        int position_y2 = 0;
         // enter the main game loop
         while (true) {
 
             // get whatever inputs
             Point point = console.getClickedPoint();
-            if (point != null) {
+            if (point != null && !firstClick) {
                 // determine what is the gem under the click point, toggle it when found
-             /*  if (gemBlue.isAt(point)) {
-                    gemBlue.toggleFocus();
-                } else if (gemRed.isAt(point)) {
-                    gemRed.toggleFocus();
-                } 
-             */
-                int position_x = (point.x - 240)/65;
-                int position_y = (point.y - 40)/65;
-                gem[position_x][position_y].toggleFocus();
+                position_x1 = (point.x - 240)/65;
+                position_y1 = (point.y - 40)/65;
+                gem[position_x1][position_y1].toggleFocus();
+                firstClick = true;
                 
+            }
+            point = console.getClickedPoint();
+            if(point != null && firstClick ){
+                position_x2 = (point.x - 240)/65;
+                position_y2 = (point.y - 40)/65;
+                gem[position_x2][position_y2].toggleFocus();
+                secondClick = true;
+            }
+            if(secondClick){
+                if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
+                    //exchangeTwo();
+                }
+                else{
+                    gem[position_x1][position_y1].toggleFocus();
+                    gem[position_x2][position_y2].toggleFocus();
+                }
+                firstClick = false;
+                secondClick = false;
             }
 
             // refresh at the specific rate, default 25 fps
@@ -149,6 +168,24 @@ public class Demo1 {
             return true;
         }
         return false;
+    }
+
+    private boolean checkNearGems(int x1, int y1, int x2, int y2) {
+        if((x2-1) == x1 && y1 == y2){
+            return true;
+        }
+        else if((x1-1) == x2 && y1 == y2){
+            return true;
+        }
+        else if((y1-1) == y2 && x1 == x2){
+            return true;
+        }
+        else if((y2-1) == y1 && x1 ==x2){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     private String scoreAdd(int x){
