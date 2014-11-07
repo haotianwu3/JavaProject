@@ -107,18 +107,19 @@ public class Demo1 {
                 position_y1 = (point.y - 40)/65;
                 gem[position_x1][position_y1].toggleFocus();
                 firstClick = true;
-                
+                point = null;
             }
-            point = console.getClickedPoint();
             if(point != null && firstClick ){
                 position_x2 = (point.x - 240)/65;
                 position_y2 = (point.y - 40)/65;
                 gem[position_x2][position_y2].toggleFocus();
                 secondClick = true;
             }
-            if(secondClick){
+            if(firstClick && secondClick){
                 if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
                     //exchangeTwo();
+                    gem[position_x1][position_y1].toggleFocus();
+                    gem[position_x2][position_y2].toggleFocus();
                 }
                 else{
                     gem[position_x1][position_y1].toggleFocus();
