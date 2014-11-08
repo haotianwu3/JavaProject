@@ -78,7 +78,7 @@ public class Demo1 {
             }
         }
         
-      //检查是否左右上下相同        
+         
         // board dimension can be obtained from console
         int width = console.getBoardWidth();
         int height = console.getBoardHeight();

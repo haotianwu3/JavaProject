@@ -40,12 +40,7 @@ public class Gem {
         this.posX = x;
         this.posY = y;
     }
-    Gem(Gem gem){
-        this.focus=gem.focus;
-        this.pic=gem.pic;
-        this.posX=gem.posX;
-        this.posY=gem.posY;
-    }
+   
     Gem(Image pic, int x, int y) {
         this.focus = new ImageIcon(this.getClass().getResource("/assets/focus.png")).getImage();
         this.pic = pic;
@@ -54,9 +49,9 @@ public class Gem {
     }
         
     public void display() {
-        GameConsole.getInstance().drawImage((int)(posX * w + orgX), (int)(posY * h + orgY), pic);
+        GameConsole.getInstance().drawImage((int)(posX *w + orgX), (int)(posY *h+ orgY), pic);
         if(selected)
-            GameConsole.getInstance().drawImage((int)(posX * w + orgX), (int)(posY * h + orgY), focus);
+            GameConsole.getInstance().drawImage((int)(posX*w + orgX), (int)(posY*h + orgY), focus);
     }
     
     public boolean isAt(Point point) {
@@ -107,7 +102,11 @@ public class Gem {
     }
     
     void moveTo(int x, int y) {
+        for(double m=this.getPosX();m<x;m=m+0.1){
+            
+        }
         this.setPosX(x);
+        
         this.setPosY(y);
     }
 
