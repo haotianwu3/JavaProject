@@ -100,8 +100,7 @@ public class Gem {
         selected = !selected;
     }
     public void setExchange(Gem gem){
-        Gem temp=new Gem(gem);
-       
+       Gem temp=new Gem(gem);
        gem.focus=this.focus;
        gem.pic=this.pic;
        this.focus=temp.focus;
