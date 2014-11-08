@@ -132,7 +132,7 @@ public class Demo1 {
                 firstClick = false;
                 secondClick = false;
             }
-
+            elimination(gem);
             // refresh at the specific rate, default 25 fps
             if (console.shouldUpdate()) {
                 console.clear();
@@ -198,5 +198,16 @@ public class Demo1 {
         score1=score1+10*x;
        score = Integer.toString(score1);
        return score;
+    }
+
+    private void elimination(Gem[][] gem) {
+        boolean leftSame = false;
+        boolean upSame = false;
+        int sameLength = 1;
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+            
+            }
+        }
     }
 }
