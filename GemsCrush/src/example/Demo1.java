@@ -10,6 +10,7 @@ package example;
 import game.GameConsole;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Point;
 import java.util.Random;
 
@@ -116,12 +117,13 @@ public class Demo1 {
             }
             if(firstClick && secondClick){
                 if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
-                   gem[position_x1][position_y1].setExchange(gem[position_x2][position_y2]);
-                    
-
-//exchangeTwo();
-                    gem[position_x1][position_y1].toggleFocus();
-                    gem[position_x2][position_y2].toggleFocus();
+                    //move the two gems 
+                    gem[position_x1][position_y1].moveTo(position_x2, position_y2);
+                    gem[position_x2][position_y2].moveTo(position_x1, position_y1);
+                    //assign the corresponding gems to corresponding array cells
+                    Image temp1 = gem[position_x1][position_y1].getPic();
+                    gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
+                    gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
                 }
                 else{
                     gem[position_x1][position_y1].toggleFocus();
