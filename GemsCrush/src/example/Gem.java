@@ -40,6 +40,12 @@ public class Gem {
         this.posX = x;
         this.posY = y;
     }
+    Gem(Gem gem){
+        this.focus=gem.focus;
+        this.pic=gem.pic;
+        this.posX=gem.posX;
+        this.posY=gem.posY;
+    }
         
     public void display() {
         GameConsole.getInstance().drawImage((int)(posX * w + orgX), (int)(posY * h + orgY), pic);
@@ -92,6 +98,14 @@ public class Gem {
     
     public void toggleFocus() {
         selected = !selected;
+    }
+    public void setExchange(Gem gem){
+        Gem temp=new Gem(gem);
+       
+       gem.focus=this.focus;
+       gem.pic=this.pic;
+       this.focus=temp.focus;
+       this.pic=temp.pic;
     }
 
 }

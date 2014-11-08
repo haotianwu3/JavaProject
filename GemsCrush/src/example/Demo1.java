@@ -77,8 +77,7 @@ public class Demo1 {
             }
         }
         
-      //检查是否左右上下相同
-        
+      //检查是否左右上下相同        
         // board dimension can be obtained from console
         int width = console.getBoardWidth();
         int height = console.getBoardHeight();
@@ -117,7 +116,10 @@ public class Demo1 {
             }
             if(firstClick && secondClick){
                 if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
-                    //exchangeTwo();
+                   gem[position_x1][position_y1].setExchange(gem[position_x2][position_y2]);
+                    
+
+//exchangeTwo();
                     gem[position_x1][position_y1].toggleFocus();
                     gem[position_x2][position_y2].toggleFocus();
                 }
