@@ -103,15 +103,15 @@ public class Demo1 {
             Point point = console.getClickedPoint();
             if (point != null && !firstClick) {
                 // determine what is the gem under the click point, toggle it when found
-                position_x1 = (point.x - 240)/65;
-                position_y1 = (point.y - 40)/65;
+                position_y1 = (point.x - 240)/65;
+                position_x1 = (point.y - 40)/65;
                 gem[position_x1][position_y1].toggleFocus();
                 firstClick = true;
                 point = null;
             }
             if(point != null && firstClick ){
-                position_x2 = (point.x - 240)/65;
-                position_y2 = (point.y - 40)/65;
+                position_y2 = (point.x - 240)/65;
+                position_x2 = (point.y - 40)/65;
                 gem[position_x2][position_y2].toggleFocus();
                 secondClick = true;
             }
@@ -132,10 +132,11 @@ public class Demo1 {
                 firstClick = false;
                 secondClick = false;
             }
-            elimination(gem);
+            
             // refresh at the specific rate, default 25 fps
             if (console.shouldUpdate()) {
                 console.clear();
+                elimination(gem);
                 //change this "00:05:32" to a variable from zero by using Timer.java
                 timeDisplay = gameTimer.getTimeString();
                 console.drawText(60, 150, "[TIME]", new Font("Helvetica", Font.BOLD, 20), Color.white);
@@ -201,13 +202,42 @@ public class Demo1 {
     }
 
     private void elimination(Gem[][] gem) {
-        boolean leftSame = false;
-        boolean upSame = false;
-        int sameLength = 1;
         for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++){
-            
-            }
+            int endPlace = 0;
+            int j = 0;
+            boolean finishRow = checkRow(gem, j, i, endPlace);
         }
+    }
+    private boolean checkRow(Gem [][] gem, int j, int i, int endPlace){
+            j = endPlace;
+            endPlace = checkRight(gem,i,j);
+            // find that endPlace-j always samller than 2
+            if(endPlace-j>2){//here are some errors
+                //xiaochu j ~ endPlace
+                System.out.println(endPlace - j);//used for testing
+                
+                    Random rand = new Random();
+                    gem[i][j] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                    gem[i][j+1] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j+1);
+                    //gem[i][j+2] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j+2);
+            }
+            else{
+                if(endPlace>=7){
+                    return true;
+                }
+                checkRow(gem, j, i, endPlace);
+            }
+        return false;
+    
+    }
+    private int checkRight(Gem[][] gem, int i, int j) {
+        if(j == 7){
+            return 7;
+        }
+        if(checkLeft(gem[i][j],gem[i][j+1])){
+            j++;
+            checkRight(gem, i, j);
+        }
+        return j+1;
     }
 }
