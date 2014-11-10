@@ -20,8 +20,8 @@ import javax.swing.ImageIcon;
 public class Gem {
 
     // the upper-left corner of the board, reference origin point
-    public static final int orgX = 240;
-    public static final int orgY = 40;
+    public static final int orgY = 240;
+    public static final int orgX = 40;
     // the size of the gem
     public static final int w = 65;
     public static final int h = 65;
@@ -49,14 +49,14 @@ public class Gem {
     }
         
     public void display() {
-        GameConsole.getInstance().drawImage((int)(posX *w + orgX), (int)(posY *h+ orgY), pic);
+        GameConsole.getInstance().drawImage((int)(posY *w+ orgY), (int)(posX *h + orgX), pic);
         if(selected)
-            GameConsole.getInstance().drawImage((int)(posX*w + orgX), (int)(posY*h + orgY), focus);
+            GameConsole.getInstance().drawImage((int)(posY*w + orgY), (int)(posX*h + orgX), focus);
     }
     
     public boolean isAt(Point point) {
         if(point != null)
-            return (point.x > (posX * w + orgX) && point.x <= ((posX + 1) * w + orgX) && point.y > (posY * h + orgY) && point.y <= ((posY + 1) * h + orgY));   
+            return (point.x > (posY * w + orgY) && point.x <= ((posY + 1) * w + orgY) && point.y > (posX * h + orgX) && point.y <= ((posX + 1) * h + orgX));   
         else
             return false;
     }
