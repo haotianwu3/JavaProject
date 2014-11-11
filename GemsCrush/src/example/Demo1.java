@@ -215,11 +215,11 @@ public class Demo1 {
                 //xiaochu j ~ endPlace
                 System.out.println(j);//used for testing
                 System.out.println(endPlace);//used for testing
-                
-                    Random rand = new Random();
-                    for(int start = j; start < endPlace; start++){
-                        gem[i][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, start);
-                    }
+                scoreAdd(endPlace - j);
+                Random rand = new Random();
+                for(int start = j; start < endPlace; start++){
+                    gem[i][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, start);
+                }
             }
             else{
                 if(endPlace>=7){
@@ -234,7 +234,7 @@ public class Demo1 {
     private int checkRight(Gem[][] gem, int i, int j) {
         int index = j;
         if(j == 7){
-            return 6;
+            return 7;
         }
         if(checkLeft(gem[i][j],gem[i][j+1])){
             j += 1;
