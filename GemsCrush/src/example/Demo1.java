@@ -136,7 +136,7 @@ public class Demo1 {
             // refresh at the specific rate, default 25 fps
             if (console.shouldUpdate()) {
                 console.clear();
-                elimination(gem);
+                
                 //change this "00:05:32" to a variable from zero by using Timer.java
                 timeDisplay = gameTimer.getTimeString();
                 console.drawText(60, 150, "[TIME]", new Font("Helvetica", Font.BOLD, 20), Color.white);
@@ -152,7 +152,7 @@ public class Demo1 {
                         gem[i][j].display();
                    
                
-       
+                elimination(gem);
                 console.update();
             }
 
@@ -209,35 +209,37 @@ public class Demo1 {
         }
     }
     private boolean checkRow(Gem [][] gem, int j, int i, int endPlace){
-            j = endPlace;
-            endPlace = checkRight(gem,i,j);
+            endPlace = (checkRight(gem,i,j)+1);
             // find that endPlace-j always samller than 2
             if(endPlace-j>2){//here are some errors
                 //xiaochu j ~ endPlace
-                System.out.println(endPlace - j);//used for testing
+                System.out.println(j);//used for testing
+                System.out.println(endPlace);//used for testing
                 
                     Random rand = new Random();
-                    gem[i][j] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                    gem[i][j+1] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j+1);
-                    //gem[i][j+2] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j+2);
+                    for(int start = j; start < endPlace; start++){
+                        gem[i][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, start);
+                    }
             }
             else{
                 if(endPlace>=7){
                     return true;
                 }
+                j = endPlace;
                 checkRow(gem, j, i, endPlace);
             }
         return false;
     
     }
     private int checkRight(Gem[][] gem, int i, int j) {
+        int index = j;
         if(j == 7){
-            return 7;
+            return 6;
         }
         if(checkLeft(gem[i][j],gem[i][j+1])){
-            j++;
-            checkRight(gem, i, j);
+            j += 1;
+            index = checkRight(gem, i, j);
         }
-        return j+1;
+        return index;
     }
 }
