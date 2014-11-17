@@ -15,6 +15,8 @@ import java.awt.Point;
 import java.util.Random;
 import javax.swing.JButton;
 import java.awt.*;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
@@ -38,7 +40,7 @@ public class Demo1 {
         // make the console visible
         console.show();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Sound backGround = new Sound("/assets/New_LAN_2.wav");
         backGround.playSound();
         // a more OO approach to write the main method
@@ -50,21 +52,27 @@ public class Demo1 {
         startupFrame.setTitle("!!!**Gem Crush**!!!");
         startupFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         startupFrame.setLocation(400, 400);
-        startupFrame.setPreferredSize(new Dimension(400, 540));
+        startupFrame.setPreferredSize(new Dimension(600, 540));
         startupFrame.setVisible(true);
-        startupFrame.setLayout(new GridLayout(3, 1, 10, 50));
-        JButton jbt = new JButton("Start");
-        jbt.setPreferredSize(new Dimension(100, 100));
-        // add an Icon
-        //ImageIcon jbtIcon = new ImageIcon();
-        jbt.setIcon(null);
+        startupFrame.setLayout(new GridLayout(3, 1, 0, 0));
+        
+        ImageIcon start = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\1.png");
+        JButton jbt = new JButton("Start ", start);
+        jbt.setBackground(Color.white);
         startupFrame.add(jbt);
-        JButton jbt2 = new JButton("Load");
-        jbt2.setPreferredSize(new Dimension(100, 100));
+        
+        ImageIcon Load = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\2.png");
+        JButton jbt2 = new JButton("Load ", Load);
+        jbt2.setBackground(Color.white);
         startupFrame.add(jbt2);
-        JButton jbt3 = new JButton("Exit");
-        jbt3.setPreferredSize(new Dimension(100, 100));
+        
+        ImageIcon Exit = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\3.png");
+        JButton jbt3 = new JButton("Exit ", Exit);
+        jbt3.setBackground(Color.white);
         startupFrame.add(jbt3);
+        //jbt.setPreferredSize(new Dimension(100, 100));
+        
+
         game.startGame();
     }
 
