@@ -98,6 +98,8 @@ public class Gem {
     }
     
     public void toggleFocus() {
+        Sound select = new Sound("/assets/select.wav");
+        select.playSound();
         selected = !selected;
     }
     

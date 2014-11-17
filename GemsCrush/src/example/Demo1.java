@@ -16,6 +16,8 @@ import java.util.Random;
 import javax.swing.JButton;
 import java.awt.*;
 import javax.swing.*;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 /**
  * Demo for the use of:
@@ -37,16 +39,33 @@ public class Demo1 {
         console.show();
     }
     public static void main(String[] args) {
+        Sound backGround = new Sound("/assets/New_LAN_2.wav");
+        backGround.playSound();
         // a more OO approach to write the main method
-      //adding button
-      Demo1 game = new Demo1();
-       /* ImageIcon start=new ImageIcon("iStock_000008997748XSmall.jpg");
-    JButton button1=new JButton(start);
-    JPanel panel=new JPanel();
-    panel.add(button1);
-*/
-
-       game.startGame();
+        
+        Demo1 game = new Demo1();
+        
+        JFrame startupFrame = new JFrame();    
+        startupFrame.setSize(300, 350);
+        startupFrame.setTitle("!!!**Gem Crush**!!!");
+        startupFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        startupFrame.setLocation(400, 400);
+        startupFrame.setPreferredSize(new Dimension(400, 540));
+        startupFrame.setVisible(true);
+        startupFrame.setLayout(new GridLayout(3, 1, 10, 50));
+        JButton jbt = new JButton("Start");
+        jbt.setPreferredSize(new Dimension(100, 100));
+        // add an Icon
+        //ImageIcon jbtIcon = new ImageIcon();
+        jbt.setIcon(null);
+        startupFrame.add(jbt);
+        JButton jbt2 = new JButton("Load");
+        jbt2.setPreferredSize(new Dimension(100, 100));
+        startupFrame.add(jbt2);
+        JButton jbt3 = new JButton("Exit");
+        jbt3.setPreferredSize(new Dimension(100, 100));
+        startupFrame.add(jbt3);
+        game.startGame();
     }
 
     public void startGame() {
@@ -195,6 +214,8 @@ public class Demo1 {
     }
     
     private String scoreAdd(int x){
+        Sound matchAndScore = new Sound("/assets/match.wav");
+        matchAndScore.playSound();
         int score1=Integer.parseInt(score);
         score1=score1+10*x;
         score = Integer.toString(score1);
@@ -219,12 +240,12 @@ public class Demo1 {
                 scoreAdd(endPlace - j);
                 Random rand = new Random();
                 //fall from top
-                for(int start = j; start < endPlace; start++){      
+                for(int start = j; start < endPlace; start++){
                     for(int y=i;y>0;y--){
                        gem[y-1][start].moveTo(y, start);
                        gem[y][start]=new Gem(gem[y-1][start].getPic(),gem[y-1][start].getPosX(),gem[y-1][start].getPosY());
                     }
-                       gem[0][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0,start);
+                    gem[0][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0,start);
                 }
             }
             else{
