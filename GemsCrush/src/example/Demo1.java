@@ -78,9 +78,12 @@ public class Demo1 {
         Random rand = new Random();
         boolean upSame = false;
         boolean leftSame = false;
+        
         Image start = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Start.png").getImage();
+        Image Save = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Save.png").getImage();
         Image Load = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Load.png").getImage();
         Image Exit = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Exit.png").getImage();
+        
         Gem gem[][]=new Gem[8][8];
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
@@ -117,7 +120,6 @@ public class Demo1 {
 
         //new a timer
         Timer gameTimer = new Timer();
-        gameTimer.start();
         String timeDisplay = new String();
         boolean firstClick = false;
         boolean secondClick = false;
@@ -125,61 +127,77 @@ public class Demo1 {
         int position_y1 = 0;
         int position_x2 = 0;
         int position_y2 = 0;
+        
+        boolean startGame = false;
+        
         // enter the main game loop
         while (true) {
             // get whatever inputs
             Point point = console.getClickedPoint();
-            if (point != null && !firstClick) {
+            if(point != null && point.x >= 240 && point.y >= 40){
+                if (!firstClick) {
                 // determine what is the gem under the click point, toggle it when found
                 position_y1 = (point.x - 240)/65;
                 position_x1 = (point.y - 40)/65;
                 gem[position_x1][position_y1].toggleFocus();
                 firstClick = true;
                 point = null;
-            }
-            if(point != null && firstClick ){
-                position_y2 = (point.x - 240)/65;
-                position_x2 = (point.y - 40)/65;
-                gem[position_x2][position_y2].toggleFocus();
-                secondClick = true;
-            }
-            if(firstClick && secondClick){
-                if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
-                    //move the two gems 
-                    gem[position_x1][position_y1].moveTo(position_x2, position_y2);
-                    gem[position_x2][position_y2].moveTo(position_x1, position_y1);
-                    //assign the corresponding gems to corresponding array cells
-                    Image temp1 = gem[position_x1][position_y1].getPic();
-                    gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
-                    gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
                 }
-                else{
-                    gem[position_x1][position_y1].toggleFocus();
+                if(firstClick ){
+                    position_y2 = (point.x - 240)/65;
+                    position_x2 = (point.y - 40)/65;
                     gem[position_x2][position_y2].toggleFocus();
+                    secondClick = true;
                 }
-                firstClick = false;
-                secondClick = false;
+                if(firstClick && secondClick){
+                    if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
+                        //move the two gems 
+                        gem[position_x1][position_y1].moveTo(position_x2, position_y2);
+                        gem[position_x2][position_y2].moveTo(position_x1, position_y1);
+                        //assign the corresponding gems to corresponding array cells
+                        Image temp1 = gem[position_x1][position_y1].getPic();
+                        gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
+                        gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
+                    }
+                    else{
+                        gem[position_x1][position_y1].toggleFocus();
+                        gem[position_x2][position_y2].toggleFocus();
+                    }
+                    firstClick = false;
+                    secondClick = false;
+                }
+            }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 300 && point.y <= 380){
+                //start clicked
+                startGame = true;
+                gameTimer.start();
             }
+            
             
             // refresh at the specific rate, default 25 fps
             if (console.shouldUpdate()) {
                 console.clear();
                 
                 //change this "00:05:32" to a variable from zero by using Timer.java
-                timeDisplay = gameTimer.getTimeString();
-                console.drawText(60, 150, "[TIME]", new Font("Helvetica", Font.BOLD, 20), Color.white);
-                console.drawText(60, 180, timeDisplay, new Font("Helvetica", Font.PLAIN, 20), Color.white);
-                // change the "220" score by a variable that accumulates from 0
-                console.drawText(60, 250, "[SCORE]", new Font("Helvetica", Font.BOLD, 20), Color.white);
-                console.drawText(60, 280, score, new Font("Helvetica", Font.PLAIN, 20), Color.white);
+                if(startGame){
+                    timeDisplay = gameTimer.getTimeString();
+                    console.drawText(60, 150, "[TIME]", new Font("Helvetica", Font.BOLD, 20), Color.white);
+                    console.drawText(60, 180, timeDisplay, new Font("Helvetica", Font.PLAIN, 20), Color.white);
+                    // change the "220" score by a variable that accumulates from 0
+                    console.drawText(60, 250, "[SCORE]", new Font("Helvetica", Font.BOLD, 20), Color.white);
+                    console.drawText(60, 280, score, new Font("Helvetica", Font.PLAIN, 20), Color.white);
+                    
+                    for(int i=0;i<8;i++)
+                        for(int j=0;j<8;j++)
+                            gem[i][j].display();
+                }
+                
                 
                 console.drawImage(30, 300, start);
-                console.drawImage(30, 360, Load);
-                console.drawImage(30, 420, Exit);
+                console.drawImage(30, 360, Save);
+                console.drawImage(30, 420, Load);
+                console.drawImage(30, 480, Exit);
                 
-                for(int i=0;i<8;i++)
-                    for(int j=0;j<8;j++)
-                        gem[i][j].display();
+               
                 elimination(gem);
                 console.update();
             }
