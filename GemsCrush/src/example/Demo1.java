@@ -19,6 +19,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import static javax.swing.JOptionPane.QUESTION_MESSAGE;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 /**
@@ -178,9 +180,16 @@ public class Demo1 {
                 
             }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 480 && point.y <= 560){
                 //Exit clicked
-                console.clear();
-                console.close();
-                System.exit(0);
+                JOptionPane exitPane = new JOptionPane("Click YES to Exit the Game", QUESTION_MESSAGE, YES_NO_OPTION);
+                JDialog dialog = exitPane.createDialog("Exit?");
+                dialog.show();
+                String selectValue = exitPane.getValue().toString();
+                if("0".equals(selectValue)){
+                    console.clear();
+                    console.close();
+                    System.exit(0);
+                }
+                
             }
             
             
