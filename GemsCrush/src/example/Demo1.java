@@ -55,8 +55,6 @@ public class Demo1 {
 //        startupFrame.setPreferredSize(new Dimension(600, 540));
 //        startupFrame.setVisible(true);
 //        startupFrame.setLayout(new GridLayout(3, 1, 0, 0));
-        
-        Image start = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\start.bmp").getImage();
 //        JButton jbt = new JButton("Start ", start);
 //        jbt.setBackground(Color.white);
 //        startupFrame.add(jbt);
@@ -71,8 +69,6 @@ public class Demo1 {
 //        jbt3.setBackground(Color.white);
 //        startupFrame.add(jbt3);
         //jbt.setPreferredSize(new Dimension(100, 100));
-        GameConsole.getInstance().drawImage(30, 300, start);
-
         game.startGame();
     }
 
@@ -82,7 +78,7 @@ public class Demo1 {
         Random rand = new Random();
         boolean upSame = false;
         boolean leftSame = false;
-       
+        Image start = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Start.png").getImage();
        
         Gem gem[][]=new Gem[8][8];
         for(int i=0;i<8;i++){
@@ -175,7 +171,7 @@ public class Demo1 {
                 // change the "220" score by a variable that accumulates from 0
                 console.drawText(60, 250, "[SCORE]", new Font("Helvetica", Font.BOLD, 20), Color.white);
                 console.drawText(60, 280, score, new Font("Helvetica", Font.PLAIN, 20), Color.white);
-                
+                console.drawImage(30, 300, start);
                 for(int i=0;i<8;i++)
                     for(int j=0;j<8;j++)
                         gem[i][j].display();
