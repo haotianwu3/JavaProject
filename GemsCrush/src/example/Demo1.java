@@ -178,7 +178,9 @@ public class Demo1 {
                 
             }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 480 && point.y <= 560){
                 //Exit clicked
-                
+                console.clear();
+                console.close();
+                System.exit(0);
             }
             
             
@@ -197,8 +199,9 @@ public class Demo1 {
                     console.drawText(60, 280, score, new Font("Helvetica", Font.PLAIN, 20), Color.white);
                     
                     for(int i=0;i<8;i++)
-                        for(int j=0;j<8;j++)
+                        for(int j=0;j<8;j++){
                             gem[i][j].display();
+                        }
                 }
                 
                 
