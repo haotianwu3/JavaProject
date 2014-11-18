@@ -79,7 +79,8 @@ public class Demo1 {
         boolean upSame = false;
         boolean leftSame = false;
         Image start = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Start.png").getImage();
-       
+        Image Load = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Load.png").getImage();
+        Image Exit = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Exit.png").getImage();
         Gem gem[][]=new Gem[8][8];
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
@@ -171,7 +172,11 @@ public class Demo1 {
                 // change the "220" score by a variable that accumulates from 0
                 console.drawText(60, 250, "[SCORE]", new Font("Helvetica", Font.BOLD, 20), Color.white);
                 console.drawText(60, 280, score, new Font("Helvetica", Font.PLAIN, 20), Color.white);
+                
                 console.drawImage(30, 300, start);
+                console.drawImage(30, 360, Load);
+                console.drawImage(30, 420, Exit);
+                
                 for(int i=0;i<8;i++)
                     for(int j=0;j<8;j++)
                         gem[i][j].display();
