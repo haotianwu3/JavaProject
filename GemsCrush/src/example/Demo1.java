@@ -143,7 +143,7 @@ public class Demo1 {
                 firstClick = true;
                 point = null;
                 }
-                if(firstClick ){
+                if(firstClick && point != null){
                     position_y2 = (point.x - 240)/65;
                     position_x2 = (point.y - 40)/65;
                     gem[position_x2][position_y2].toggleFocus();
