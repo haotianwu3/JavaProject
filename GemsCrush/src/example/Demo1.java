@@ -47,31 +47,31 @@ public class Demo1 {
         
         Demo1 game = new Demo1();
         
-        JFrame startupFrame = new JFrame();    
-        startupFrame.setSize(300, 350);
-        startupFrame.setTitle("!!!**Gem Crush**!!!");
-        startupFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        startupFrame.setLocation(400, 400);
-        startupFrame.setPreferredSize(new Dimension(600, 540));
-        startupFrame.setVisible(true);
-        startupFrame.setLayout(new GridLayout(3, 1, 0, 0));
+//        JFrame startupFrame = new JFrame();    
+//        startupFrame.setSize(300, 350);
+//        startupFrame.setTitle("!!!**Gem Crush**!!!");
+//        startupFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        startupFrame.setLocation(400, 400);
+//        startupFrame.setPreferredSize(new Dimension(600, 540));
+//        startupFrame.setVisible(true);
+//        startupFrame.setLayout(new GridLayout(3, 1, 0, 0));
         
-        ImageIcon start = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\1.png");
-        JButton jbt = new JButton("Start ", start);
-        jbt.setBackground(Color.white);
-        startupFrame.add(jbt);
-        
-        ImageIcon Load = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\2.png");
-        JButton jbt2 = new JButton("Load ", Load);
-        jbt2.setBackground(Color.white);
-        startupFrame.add(jbt2);
-        
-        ImageIcon Exit = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\3.png");
-        JButton jbt3 = new JButton("Exit ", Exit);
-        jbt3.setBackground(Color.white);
-        startupFrame.add(jbt3);
+        Image start = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\start.bmp").getImage();
+//        JButton jbt = new JButton("Start ", start);
+//        jbt.setBackground(Color.white);
+//        startupFrame.add(jbt);
+//        
+//        ImageIcon Load = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\2.png");
+//        JButton jbt2 = new JButton("Load ", Load);
+//        jbt2.setBackground(Color.white);
+//        startupFrame.add(jbt2);
+//        
+//        ImageIcon Exit = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\3.png");
+//        JButton jbt3 = new JButton("Exit ", Exit);
+//        jbt3.setBackground(Color.white);
+//        startupFrame.add(jbt3);
         //jbt.setPreferredSize(new Dimension(100, 100));
-        
+        GameConsole.getInstance().drawImage(30, 300, start);
 
         game.startGame();
     }
