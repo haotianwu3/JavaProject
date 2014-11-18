@@ -79,10 +79,10 @@ public class Demo1 {
         boolean upSame = false;
         boolean leftSame = false;
         
-        Image start = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Start.png").getImage();
-        Image Save = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Save.png").getImage();
-        Image Load = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Load.png").getImage();
-        Image Exit = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\Exit.png").getImage();
+        Image start = new ImageIcon(".\\assets\\Start.png").getImage();
+        Image Save = new ImageIcon(".\\assets\\Save.png").getImage();
+        Image Load = new ImageIcon(".\\assets\\Load.png").getImage();
+        Image Exit = new ImageIcon(".\\assets\\Exit.png").getImage();
         
         Gem gem[][]=new Gem[8][8];
         for(int i=0;i<8;i++){
@@ -134,7 +134,7 @@ public class Demo1 {
         while (true) {
             // get whatever inputs
             Point point = console.getClickedPoint();
-            if(point != null && point.x >= 240 && point.y >= 40){
+            if(point != null && point.x >= 240 && point.y >= 40 && startGame){
                 if (!firstClick) {
                 // determine what is the gem under the click point, toggle it when found
                 position_y1 = (point.x - 240)/65;
@@ -170,7 +170,17 @@ public class Demo1 {
                 //start clicked
                 startGame = true;
                 gameTimer.start();
+            }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 360 && point.y <= 440){
+                //Save clicked
+                
+            }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 420 && point.y <= 500){
+                //Load clicked
+                
+            }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 480 && point.y <= 560){
+                //Exit clicked
+                
             }
+            
             
             
             // refresh at the specific rate, default 25 fps
