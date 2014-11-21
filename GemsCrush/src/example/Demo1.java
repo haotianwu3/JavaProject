@@ -154,12 +154,98 @@ public class Demo1 {
                 if(firstClick && secondClick){
                     if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
                         //move the two gems 
-                        gem[position_x1][position_y1].moveTo(position_x2, position_y2);
-                        gem[position_x2][position_y2].moveTo(position_x1, position_y1);
-                        //assign the corresponding gems to corresponding array cells
+                    
+                        if(position_y1-position_y2==1){  //第一个在第二的右边
+                           int i=position_y1*65+240;
+                           int j=position_y2 *65+240;
+                          while(i>=position_y2*65+240 && j<=position_y1*65+240) {
+                                console.drawImage(position_x1*65+40, i,gem[position_x1][position_y1].getPic());
+                                console.drawImage(position_x2*65+40, j,gem[position_x2][position_y2].getPic());
+                               /* int m=0;
+                                while(m<=1000000){
+                                    m++;
+                                int n=0;
+                                while(n<=10000000)
+                                    n++;
+                                }*/
+                                console.idle(3); 
+                                i--;
+                                j++;
+                        }
                         Image temp1 = gem[position_x1][position_y1].getPic();
+                      
                         gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
                         gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
+                        }
+                        else if(position_y2-position_y1==1){ //一在二的左边
+                            int j=position_y1*65+240;
+                           int i=position_y2 *65+240;
+                          while(i>=position_y1*65+240 && j<=position_y2*65+240) {
+                                console.drawImage(position_x1*65+40, j,gem[position_x1][position_y1].getPic());
+                                console.drawImage(position_x2*65+40, i,gem[position_x2][position_y2].getPic());
+                               /* int m=0;
+                                while(m<=1000000){
+                                    m++;
+                                int n=0;
+                                while(n<=10000000)
+                                    n++;
+                                }*/
+                                console.idle(3); 
+                                
+                                i--;
+                                j++;
+                        }
+                        Image temp1 = gem[position_x1][position_y1].getPic();
+                      
+                        gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
+                        gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
+                        }
+                        
+                        else if(position_x1-position_x2==1){  //一在二下面
+                             int j=position_x1*65+40;
+                           int i=position_x2 *65+40;
+                          while(i<=position_x1*65+40 && j>=position_x2*65+40) {
+                                console.drawImage(j, position_y1*65+240,gem[position_x1][position_y1].getPic());
+                                console.drawImage(i,position_y2*65+240,gem[position_x2][position_y2].getPic());
+                             /*  int m=0;
+                                while(m<=1000000){
+                                    m++;
+                                int n=0;
+                                while(n<=10000000)
+                                    n++;
+                                }*/
+                                console.idle(3); 
+                                j--;
+                                i++;
+                        }
+                        Image temp1 = gem[position_x1][position_y1].getPic();
+                      
+                        gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
+                        gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
+                        }
+                        
+                        else if(position_x2-position_x1==1){ //一在二的上边
+                            int j=position_x1*65+40;
+                           int i=position_x2 *65+40;
+                          while(i>=position_x1*65+40 && j<=position_x2*65+40) {
+                                console.drawImage(j,position_y1*65+240,gem[position_x1][position_y1].getPic());
+                                console.drawImage(i,position_y2*65+240,gem[position_x2][position_y2].getPic());
+                                /*int m=0;
+                                while(m<=1000000){
+                                    m++;
+                                int n=0;
+                                while(n<=10000000)
+                                    n++;
+                                }*/
+                                console.idle(3); 
+                                i--;
+                                j++;
+                        }
+                        Image temp1 = gem[position_x1][position_y1].getPic();
+                      
+                        gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
+                        gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
+                        }
                     }
                     else{
                         gem[position_x1][position_y1].toggleFocus();
@@ -291,9 +377,23 @@ public class Demo1 {
                 //fall from top
                 for(int start = j; start < endPlace; start++){
                     for(int y=i;y>0;y--){
-                       gem[y-1][start].moveTo(y, start);
-                       gem[y][start]=new Gem(gem[y-1][start].getPic(),gem[y-1][start].getPosX(),gem[y-1][start].getPosY());
+                           int l=y*65+40;
+                           int u=(y-1) *65+40;
+                          while(u<=l) {
+                                console.drawImage(u, start*65+240,gem[y-1][start].getPic());
+                                console.idle(3); 
+                               /*int m=0;
+                                while(m<=1000000){
+                                    m++;
+                                int n=0;
+                                while(n<=10000000)
+                                    n++;
+                                }*/
+                                u++;
+                        }
+                        gem[y][start] = new Gem(gem[y-1][start].getPic(), y,start);
                     }
+                    
                     gem[0][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0,start);
                 }
             }
@@ -314,8 +414,24 @@ public class Demo1 {
             Random rand = new Random();
           //fall down
             for(int start=endPlace-1;start>=count;start--){
-                       gem[start-count][j].moveTo(start,j);
-                       gem[start][j]=new Gem(gem[start-count][j].getPic(),gem[start-count][j].getPosX(),gem[start-count][j].getPosY());
+                
+               
+                           int l=start*65+40;
+                           int u=(start-count) *65+40;
+                          while(u<=l) {
+                                console.drawImage(u, j*65+240,gem[start-count][j].getPic());
+                                     console.idle(3); 
+                                     /*int m=0;
+                                while(m<=1000000){
+                                    m++;
+                                int n=0;
+                                while(n<=10000000)
+                                    n++;
+                                }*/
+                                u++;
+                        }
+                        gem[start][j]=new Gem(gem[start-count][j].getPic(),start,j);
+           
             }
             for(int start=count-1;start>=0;start--)
                 gem[start][j] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", start,j);
