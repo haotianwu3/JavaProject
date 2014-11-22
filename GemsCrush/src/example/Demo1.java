@@ -15,7 +15,10 @@ import java.awt.Point;
 import java.util.Random;
 import javax.swing.JButton;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -258,11 +261,94 @@ public class Demo1 {
                 //start clicked
                 startGame = true;
                 gameTimer.start();
-            }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 360 && point.y <= 440){
+            }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 360 && point.y <= 440 && startGame == true){
                 //Save clicked
+                File out = new File("GameLog.txt");
+                FileWriter writer = null;
+                try{
+                    writer = new FileWriter(out);
+                    writer.write(score + "\r\n");
+                    Image pic1 = new ImageIcon(this.getClass().getResource("/assets/1.png")).getImage();
+                    Image pic2 = new ImageIcon(this.getClass().getResource("/assets/2.png")).getImage();
+                    Image pic3 = new ImageIcon(this.getClass().getResource("/assets/3.png")).getImage();
+                    Image pic4 = new ImageIcon(this.getClass().getResource("/assets/4.png")).getImage();
+                    Image pic5 = new ImageIcon(this.getClass().getResource("/assets/5.png")).getImage();
+                    Image pic6 = new ImageIcon(this.getClass().getResource("/assets/6.png")).getImage();
+                    Image pic7 = new ImageIcon(this.getClass().getResource("/assets/7.png")).getImage();
+                    for(int i=0;i<8;i++){
+                        for(int j=0;j<8;j++){
+                            Image temp = gem[i][j].getPic();
+                            if(temp == pic1){
+                                writer.write("1 ");
+                            }else if(temp == pic2){
+                                writer.write("2 ");
+                            }
+                            else if(temp == pic3){
+                                writer.write("3 ");
+                            }
+                            else if(temp == pic4){
+                                writer.write("4 ");
+                            }
+                            else if(temp == pic5){
+                                writer.write("5 ");
+                            }
+                            else if(temp == pic6){
+                                writer.write("6 ");
+                            }
+                            else if(temp == pic7){
+                                writer.write("7 ");
+                            }
+                        }
+                        writer.write("\r\n");
+                    }
+                    
+                    writer.close();
+                    JOptionPane.showMessageDialog(null, "Successful!!!", "Save", JOptionPane.INFORMATION_MESSAGE);
+                }catch(IOException e){
+                    System.out.println("IO Error.\r\n" + e);
+                }
                 
             }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 420 && point.y <= 500){
                 //Load clicked
+                startGame = true;
+                gameTimer.start();
+                File in = new File("GameLog.txt");
+                Scanner scanner = null; 
+                try{
+                    scanner = new Scanner(in);
+                    score = scanner.nextLine();
+                    while(scanner.hasNext()){
+                        for(int i=0;i<8;i++){
+                            for(int j=0;j<8;j++){
+                                String temp = scanner.next();
+                                if("1".equals(temp)){
+                                    gem[i][j].setPic("/assets/1.png");
+                                }else if("2".equals(temp)){
+                                    gem[i][j].setPic("/assets/2.png");
+                                }
+                                else if("3".equals(temp)){
+                                    gem[i][j].setPic("/assets/3.png");
+                                }
+                                else if("4".equals(temp)){
+                                    gem[i][j].setPic("/assets/4.png");
+                                }
+                                else if("5".equals(temp)){
+                                    gem[i][j].setPic("/assets/5.png");
+                                }
+                                else if("6".equals(temp)){
+                                    gem[i][j].setPic("/assets/6.png");
+                                }
+                                else if("7".equals(temp)){
+                                    gem[i][j].setPic("/assets/7.png");
+                                }
+                            }
+                        }
+                    }
+                    scanner.close();
+                }catch(IOException e){
+                    System.out.println("IO Error.\r\n" + e);
+                }
+                
                 
             }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 480 && point.y <= 560){
                 //Exit clicked
