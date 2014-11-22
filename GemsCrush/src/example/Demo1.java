@@ -85,7 +85,7 @@ public class Demo1 {
         Image Save = new ImageIcon(".\\assets\\Save.png").getImage();
         Image Load = new ImageIcon(".\\assets\\Load.png").getImage();
         Image Exit = new ImageIcon(".\\assets\\Exit.png").getImage();
-        
+
         Gem gem[][]=new Gem[8][8];
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
@@ -161,16 +161,17 @@ public class Demo1 {
                           while(i>=position_y2*65+240 && j<=position_y1*65+240) {
                                 console.drawImage(position_x1*65+40, i,gem[position_x1][position_y1].getPic());
                                 console.drawImage(position_x2*65+40, j,gem[position_x2][position_y2].getPic());
-                               /* int m=0;
+                                int m=0;
                                 while(m<=1000000){
                                     m++;
                                 int n=0;
-                                while(n<=10000000)
-                                    n++;
-                                }*/
-                                console.idle(3); 
+                                while(n<=1000000)
+                                     n++;
+                                }
+                              
                                 i--;
                                 j++;
+                                
                         }
                         Image temp1 = gem[position_x1][position_y1].getPic();
                       
@@ -181,16 +182,18 @@ public class Demo1 {
                             int j=position_y1*65+240;
                            int i=position_y2 *65+240;
                           while(i>=position_y1*65+240 && j<=position_y2*65+240) {
-                                console.drawImage(position_x1*65+40, j,gem[position_x1][position_y1].getPic());
+                                console.drawImage(position_x1, j,gem[position_x1][position_y1].getPic());
                                 console.drawImage(position_x2*65+40, i,gem[position_x2][position_y2].getPic());
-                               /* int m=0;
+                                int m=0;
                                 while(m<=1000000){
                                     m++;
                                 int n=0;
-                                while(n<=10000000)
-                                    n++;
-                                }*/
-                                console.idle(3); 
+                                while(n<=1000000)
+                                     n++;
+                                   
+                                
+                                }
+                               // console.idle(3); 
                                 
                                 i--;
                                 j++;
@@ -207,14 +210,15 @@ public class Demo1 {
                           while(i<=position_x1*65+40 && j>=position_x2*65+40) {
                                 console.drawImage(j, position_y1*65+240,gem[position_x1][position_y1].getPic());
                                 console.drawImage(i,position_y2*65+240,gem[position_x2][position_y2].getPic());
-                             /*  int m=0;
+                              int m=0;
                                 while(m<=1000000){
                                     m++;
                                 int n=0;
-                                while(n<=10000000)
-                                    n++;
-                                }*/
-                                console.idle(3); 
+                                while(n<=1000000)
+                                     n++;
+                                   
+                                }
+                               // console.idle(3); 
                                 j--;
                                 i++;
                         }
@@ -229,15 +233,19 @@ public class Demo1 {
                            int i=position_x2 *65+40;
                           while(i>=position_x1*65+40 && j<=position_x2*65+40) {
                                 console.drawImage(j,position_y1*65+240,gem[position_x1][position_y1].getPic());
-                                console.drawImage(i,position_y2*65+240,gem[position_x2][position_y2].getPic());
-                                /*int m=0;
+                                console.drawImage(i,position_y2*65+240,gem[position_x2][position_y2].getPic()); 
+                                for(int f=0;f<=380;f++)
+                 console.drawImage(f, 240,Exit);
+                                
+                                int m=0;
                                 while(m<=1000000){
                                     m++;
                                 int n=0;
-                                while(n<=10000000)
-                                    n++;
-                                }*/
-                                console.idle(3); 
+                                while(n<=1000000)
+                                     n++;
+                                     
+                                }
+                                //console.idle(3); 
                                 i--;
                                 j++;
                         }
@@ -304,8 +312,7 @@ public class Demo1 {
                 console.drawImage(30, 360, Save);
                 console.drawImage(30, 420, Load);
                 console.drawImage(30, 480, Exit);
-                
-               
+              
                 elimination(gem);
                 console.update();
             }
@@ -379,16 +386,17 @@ public class Demo1 {
                     for(int y=i;y>0;y--){
                            int l=y*65+40;
                            int u=(y-1) *65+40;
+                           
                           while(u<=l) {
                                 console.drawImage(u, start*65+240,gem[y-1][start].getPic());
-                                console.idle(3); 
-                               /*int m=0;
+                          
+                               int m=0;
                                 while(m<=1000000){
                                     m++;
                                 int n=0;
-                                while(n<=10000000)
+                                while(n<=1000000)
                                     n++;
-                                }*/
+                                }
                                 u++;
                         }
                         gem[y][start] = new Gem(gem[y-1][start].getPic(), y,start);
@@ -420,14 +428,14 @@ public class Demo1 {
                            int u=(start-count) *65+40;
                           while(u<=l) {
                                 console.drawImage(u, j*65+240,gem[start-count][j].getPic());
-                                     console.idle(3); 
-                                     /*int m=0;
+                                     
+                                     int m=0;
                                 while(m<=1000000){
                                     m++;
                                 int n=0;
-                                while(n<=10000000)
+                                while(n<=1000000)
                                     n++;
-                                }*/
+                                }
                                 u++;
                         }
                         gem[start][j]=new Gem(gem[start-count][j].getPic(),start,j);

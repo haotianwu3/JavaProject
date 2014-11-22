@@ -104,9 +104,7 @@ public class Gem {
     }
     
     void moveTo(int x, int y) {
-        for(double m=this.getPosX();m<x;m=m+0.1){
-            
-        }
+       
         this.setPosX(x);
         
         this.setPosY(y);
