@@ -8,6 +8,8 @@ public class Timer {
 
     private long initTime;
 
+    
+
     public void start() {
         initTime = System.currentTimeMillis();
     }
