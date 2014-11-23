@@ -97,28 +97,12 @@ public class Demo1 {
                 if(firstClick && secondClick){
                     if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
                         //move the two gems 
-                        if(position_y1-position_y2==1){  //第一个在第二的右边
-                        Image temp1 = gem[position_x1][position_y1].getPic();
-                        gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
-                        gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
-                        }
-                        else if(position_y2-position_y1==1){ //一在二的左边
-                        Image temp1 = gem[position_x1][position_y1].getPic();
-                        gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
-                        gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
-                        }
                         
-                        else if(position_x1-position_x2==1){  //一在二下面
                         Image temp1 = gem[position_x1][position_y1].getPic();
                         gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
                         gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
-                        }
+                       
                         
-                        else if(position_x2-position_x1==1){ //一在二的上边
-                        Image temp1 = gem[position_x1][position_y1].getPic();
-                        gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
-                        gem[position_x2][position_y2] = new Gem(temp1, position_x2, position_y2);
-                        }
                     }
                     else{
                         gem[position_x1][position_y1].toggleFocus();
