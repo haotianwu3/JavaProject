@@ -1,7 +1,7 @@
 /*
  * Project Name: EE2311 Project - Gems Crush
- * Student Name:
- * Student ID:
+ * Student Name:YU YUE   /WU HAOTIAN
+ * Student ID: 53064052  /
  * 
  */
 
