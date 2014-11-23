@@ -387,14 +387,12 @@ public class Demo1 {
         //fall from top
         final int begin = j;
         final int x = i;
-        System.out.println("First___________");
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 gem[x][begin].setPic("/assets/boom.png");
                 gem[x][begin].display();
-                System.out.println("gem1");
             }
         }, 0);
         num--;
@@ -404,7 +402,6 @@ public class Demo1 {
                 public void run() {
                     gem[x][begin+1].setPic("/assets/boom.png");
                     gem[x][begin+1].display();
-                    System.out.println("gem2");
                 }
             }, 30);
         }
@@ -415,7 +412,6 @@ public class Demo1 {
                 public void run() {
                     gem[x][begin+2].setPic("/assets/boom.png");
                     gem[x][begin+2].display();
-                    System.out.println("gem3");
                 }
             }, 60);
         }
@@ -426,7 +422,6 @@ public class Demo1 {
                 public void run() {
                     gem[x][begin+3].setPic("/assets/boom.png");
                     gem[x][begin+3].display();
-                    System.out.println("gem4");
                 }
             }, 90);
         }
@@ -437,7 +432,6 @@ public class Demo1 {
                 public void run() {
                     gem[x][begin+4].setPic("/assets/boom.png");
                     gem[x][begin+4].display();
-                    System.out.println("gem5");
                 }
             }, 120);
         }
@@ -467,14 +461,12 @@ public class Demo1 {
     private void delayCol(int i, int j, int endPlace, final Gem[][] gem, int count) {
         final int y = j;
         final int begin = i;
-        System.out.println("First___________");
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 gem[begin][y].setPic("/assets/boom.png");
                 gem[begin][y].display();
-                System.out.println("gem1");
             }
         }, 0);
         count--;
@@ -484,7 +476,6 @@ public class Demo1 {
                 public void run() {
                     gem[begin+1][y].setPic("/assets/boom.png");
                     gem[begin+1][y].display();
-                    System.out.println("gem2");
                 }
             }, 30);
         }
@@ -495,7 +486,6 @@ public class Demo1 {
                 public void run() {
                     gem[begin+2][y].setPic("/assets/boom.png");
                     gem[begin+2][y].display();
-                    System.out.println("gem3");
                 }
             }, 60);
         }
@@ -506,7 +496,6 @@ public class Demo1 {
                 public void run() {
                     gem[begin+3][y].setPic("/assets/boom.png");
                     gem[begin+3][y].display();
-                    System.out.println("gem4");
                 }
             }, 90);
         }
@@ -517,7 +506,6 @@ public class Demo1 {
                 public void run() {
                     gem[begin+4][y].setPic("/assets/boom.png");
                     gem[begin+4][y].display();
-                    System.out.println("gem5");
                 }
             }, 120);
         }
