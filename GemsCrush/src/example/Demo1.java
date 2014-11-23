@@ -512,6 +512,8 @@ public class Demo1 {
                 Random rand = new Random();
                 for(int start = j; start < endPlace; start++){
                     for(int v=i;v>0;v--){
+                        Sound fallRow = new Sound("/assets/fall.wav");
+                        fallRow.playSound();
                         gem[v][start] = new Gem(gem[v-1][start].getPic(), v,start);
                     }
                     gem[0][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0,start);
@@ -592,9 +594,13 @@ public class Demo1 {
                 Random rand = new Random();
                 int count = endPlace -i;
                 for(int start = endPlace -1; start >= count;start--){
-                        gem[start][j]=new Gem(gem[start-count][j].getPic(),start,j);
+                    Sound fallCol = new Sound("/assets/fall.wav");
+                    fallCol.playSound();
+                    gem[start][j]=new Gem(gem[start-count][j].getPic(),start,j);
                 }
                 for(int start = count-1; start >= 0; start--){
+                    Sound fallCol = new Sound("/assets/fall.wav");
+                    fallCol.playSound();
                     gem[start][j] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", start,j);
                 }
             }
