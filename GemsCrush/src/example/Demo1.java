@@ -50,77 +50,43 @@ public class Demo1 {
         console.show();
     }
     public static void main(String[] args) throws IOException {
+        //play Background Music 
         Sound backGround = new Sound("/assets/New_LAN_2.wav");
         backGround.playSound();
         // a more OO approach to write the main method
-        
         Demo1 game = new Demo1();
         game.startGame();
     }
 
     public void startGame() {
-//randomly generate 8*8 gems to fill up the whole board 
-        //Blue = 1, Green = 2, Orange = 3, Purple = 4, Red = 5, White = 6, Yellow = 7
-        Random rand = new Random();
-        boolean upSame = false;
-        boolean leftSame = false;
-        
+        //Four buttons
         Image start = new ImageIcon(".\\assets\\Start.png").getImage();
         Image Save = new ImageIcon(".\\assets\\Save.png").getImage();
         Image Load = new ImageIcon(".\\assets\\Load.png").getImage();
         Image Exit = new ImageIcon(".\\assets\\Exit.png").getImage();
-        
+        //randomly generate 8*8 gems to fill up the whole board 
         Gem gem[][]=new Gem[8][8];
-        for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++){
-                gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                if(i == 0 && j>=1 ){
-                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
-                }
-                if(i >= 1 && j == 0){
-                    upSame = checkUp(gem[i][j], gem[i-1][j]);
-                }
-                if(i >= 1 && j >= 1){
-                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
-                    upSame = checkUp(gem[i][j], gem[i-1][j]);
-                }
-                
-                while(leftSame){
-                    gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
-                }
-                while(upSame){
-                    gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
-                    upSame = checkUp(gem[i][j], gem[i-1][j]);
-                }
-            }
-        }
-        
-         
-        // board dimension can be obtained from console
-        int width = console.getBoardWidth();
-        int height = console.getBoardHeight();
-        
+        initialGem(gem);
         // set custom background image
         console.setBackground("/assets/board.png");
-
         //new a timer
         GameTimer gameTimer = new GameTimer();
         String timeDisplay = new String();
+        //serve for clicking
         boolean firstClick = false;
         boolean secondClick = false;
         int position_x1 = 0;
         int position_y1 = 0;
         int position_x2 = 0;
         int position_y2 = 0;
-        
         boolean startGame = false;
-        
         // enter the main game loop
         while (true) {
             // get whatever inputs
             Point point = console.getClickedPoint();
+            // Four Buttons determination
             if(point != null && point.x >= 240 && point.y >= 40 && startGame){
+                //determine gem clicks
                 if (!firstClick) {
                 // determine what is the gem under the click point, toggle it when found
                 position_y1 = (point.x - 240)/65;
@@ -138,7 +104,6 @@ public class Demo1 {
                 if(firstClick && secondClick){
                     if(checkNearGems(position_x1, position_y1, position_x2, position_y2)){
                         //move the two gems 
-                    
                         if(position_y1-position_y2==1){  //第一个在第二的右边
                         Image temp1 = gem[position_x1][position_y1].getPic();
                         gem[position_x1][position_y1] = new Gem(gem[position_x2][position_y2].getPic(), position_x1, position_y1);
@@ -213,13 +178,11 @@ public class Demo1 {
                         }
                         writer.write("\r\n");
                     }
-                    
                     writer.close();
                     JOptionPane.showMessageDialog(null, "Successful!!!", "Save", JOptionPane.INFORMATION_MESSAGE);
                 }catch(IOException e){
                     System.out.println("IO Error.\r\n" + e);
-                }
-                
+                } 
             }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 420 && point.y <= 500){
                 //Load clicked
                 startGame = true;
@@ -260,8 +223,6 @@ public class Demo1 {
                 }catch(IOException e){
                     System.out.println("IO Error.\r\n" + e);
                 }
-                
-                
             }else if(point != null && point.x >=30 && point.x <= 180 && point.y >= 480 && point.y <= 560){
                 //Exit clicked
                 JOptionPane exitPane = new JOptionPane("Click YES to Exit the Game", QUESTION_MESSAGE, YES_NO_OPTION);
@@ -275,39 +236,27 @@ public class Demo1 {
                 }
                 
             }
-            
-            
-            
             // refresh at the specific rate, default 25 fps
             if (console.shouldUpdate()) {
                 console.clear();
-                
-                //change this "00:05:32" to a variable from zero by using Timer.java
                 if(startGame){
                     timeDisplay = gameTimer.getTimeString();
                     console.drawText(60, 150, "[TIME]", new Font("Helvetica", Font.BOLD, 20), Color.white);
                     console.drawText(60, 180, timeDisplay, new Font("Helvetica", Font.PLAIN, 20), Color.white);
-                    // change the "220" score by a variable that accumulates from 0
                     console.drawText(60, 250, "[SCORE]", new Font("Helvetica", Font.BOLD, 20), Color.white);
                     console.drawText(60, 280, score, new Font("Helvetica", Font.PLAIN, 20), Color.white);
-                    
                     for(int i=0;i<8;i++)
                         for(int j=0;j<8;j++){
                             gem[i][j].display();
                         }
                 }
-                
-                
                 console.drawImage(30, 300, start);
                 console.drawImage(30, 360, Save);
                 console.drawImage(30, 420, Load);
                 console.drawImage(30, 480, Exit);
-                
-               
                 elimination(gem);
                 console.update();
             }
-
             // the idle time affects the no. of iterations per second which 
             // should be larger than the frame rate
             // for fps at 25, it should not exceed 40ms
@@ -398,15 +347,6 @@ public class Demo1 {
         if(count>2){
             scoreAdd(count);
             delayCol(i, j, endPlace, gem, count);
-            
-//            Random rand = new Random();
-//            //fall down
-//            for(int start=endPlace-1;start>=count;start--){
-//                        gem[start][j]=new Gem(gem[start-count][j].getPic(),start,j);
-//            }
-//           
-//            for(int start=count-1;start>=0;start--)
-//                gem[start][j] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", start,j);
             }
         else{
             if(endPlace>=7){
@@ -605,5 +545,35 @@ public class Demo1 {
                 }
             }
         }, 600);
+    }
+
+    private void initialGem(Gem[][] gem) {
+        Random rand = new Random();
+        boolean upSame = false;
+        boolean leftSame = false;
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                if(i == 0 && j>=1 ){
+                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
+                }
+                if(i >= 1 && j == 0){
+                    upSame = checkUp(gem[i][j], gem[i-1][j]);
+                }
+                if(i >= 1 && j >= 1){
+                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
+                    upSame = checkUp(gem[i][j], gem[i-1][j]);
+                }
+                
+                while(leftSame){
+                    gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                    leftSame = checkLeft(gem[i][j],gem[i][j-1]);
+                }
+                while(upSame){
+                    gem[i][j]=new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", i, j);
+                    upSame = checkUp(gem[i][j], gem[i-1][j]);
+                }
+            }
+        }
     }
 }
