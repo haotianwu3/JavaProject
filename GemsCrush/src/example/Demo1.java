@@ -13,22 +13,15 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Point;
 import java.util.Random;
-import javax.swing.JButton;
-import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
-import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 /**
  * Demo for the use of:
@@ -43,7 +36,7 @@ import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
  * @author Dr. Ray
  */
 public class Demo1 {
-    private GameConsole console = GameConsole.getInstance();
+    private final GameConsole console = GameConsole.getInstance();
     private String score="0";
     public Demo1() {
         // make the console visible
@@ -293,12 +286,7 @@ public class Demo1 {
         else if((y1-1) == y2 && x1 == x2){
             return true;
         }
-        else if((y2-1) == y1 && x1 ==x2){
-            return true;
-        }
-        else{
-            return false;
-        }
+        else return (y2-1) == y1 && x1 ==x2;
     }
     
     private String scoreAdd(int x){
