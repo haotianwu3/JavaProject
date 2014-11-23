@@ -19,6 +19,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -51,29 +55,6 @@ public class Demo1 {
         // a more OO approach to write the main method
         
         Demo1 game = new Demo1();
-        
-//        JFrame startupFrame = new JFrame();    
-//        startupFrame.setSize(300, 350);
-//        startupFrame.setTitle("!!!**Gem Crush**!!!");
-//        startupFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        startupFrame.setLocation(400, 400);
-//        startupFrame.setPreferredSize(new Dimension(600, 540));
-//        startupFrame.setVisible(true);
-//        startupFrame.setLayout(new GridLayout(3, 1, 0, 0));
-//        JButton jbt = new JButton("Start ", start);
-//        jbt.setBackground(Color.white);
-//        startupFrame.add(jbt);
-//        
-//        ImageIcon Load = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\2.png");
-//        JButton jbt2 = new JButton("Load ", Load);
-//        jbt2.setBackground(Color.white);
-//        startupFrame.add(jbt2);
-//        
-//        ImageIcon Exit = new ImageIcon("C:\\Users\\Wu Haotian\\Documents\\GitHub\\JavaProject\\GemsCrush\\src\\assets\\3.png");
-//        JButton jbt3 = new JButton("Exit ", Exit);
-//        jbt3.setBackground(Color.white);
-//        startupFrame.add(jbt3);
-        //jbt.setPreferredSize(new Dimension(100, 100));
         game.startGame();
     }
 
@@ -124,7 +105,7 @@ public class Demo1 {
         console.setBackground("/assets/board.png");
 
         //new a timer
-        Timer gameTimer = new Timer();
+        GameTimer gameTimer = new GameTimer();
         String timeDisplay = new String();
         boolean firstClick = false;
         boolean secondClick = false;
@@ -334,15 +315,21 @@ public class Demo1 {
         }
     }
     private boolean checkLeft(Gem gem1, Gem gem2) {
-        if(gem1.getPic() == gem2.getPic()){
-            return true;
+        Image Bomb = new ImageIcon(this.getClass().getResource("/assets/boom.png")).getImage();
+        if(gem1.getPic() != Bomb && gem2.getPic() != Bomb){
+            if(gem1.getPic() == gem2.getPic()){
+                return true;
+            }
         }
         return false;
     }
 
     private boolean checkUp(Gem gem1, Gem gem2) {
-        if(gem1.getPic() == gem2.getPic()){
-            return true;
+        Image Bomb = new ImageIcon(this.getClass().getResource("/assets/boom.png")).getImage();
+        if(gem1.getPic() != Bomb && gem2.getPic() != Bomb){
+            if(gem1.getPic() == gem2.getPic()){
+                return true;
+            }
         }
         return false;
     }
@@ -386,31 +373,13 @@ public class Demo1 {
          boolean finishCol = checkCol(gem, i,j, endPlace);
         }
     }
-    private boolean checkRow(Gem [][] gem, int j, int i, int endPlace){
-         Image Bomb = new ImageIcon(".\\assets\\boom_explosion-64.png").getImage();
+    private boolean checkRow(final Gem [][] gem, int j, int i, int endPlace){
             endPlace = (checkRight(gem,i,j)+1);
             if(endPlace-j>2){
-                scoreAdd(endPlace - j);
-                Random rand = new Random();
-                //fall from top
-                for(int start = j; start < endPlace; start++){
-                    for(int v=i;v>0;v--){
-                           gem[v][start] = new Gem(Bomb, v,start);
-                   
-                               int m=0;
-                                while(m<=1000000){
-                                    m++;
-                                int n=0;
-                                while(n<=10000000)
-                                    n++;
-                                }
-                               
-                            
-                          gem[v][start] = new Gem(gem[v-1][start].getPic(), v,start);
-                    }
-                   
-                    gem[0][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0,start);
-                }
+                int num = endPlace - j;
+                scoreAdd(num);
+                //use timer to display bomb image
+                delay(i,j,endPlace,gem, num);
             }
             else{
                 if(endPlace>=7){
@@ -421,8 +390,9 @@ public class Demo1 {
             }
         return false;
     }
+    
     private boolean checkCol(Gem[][]gem,int j,int i,int endPlace){
-        Image Bomb = new ImageIcon(".\\assets\\boom_explosion-64.png").getImage();
+        Image Bomb = new ImageIcon("/assets/boom_explosion-64.png").getImage();
         endPlace=(checkDown(gem,i,j)+1);
         int count=endPlace-i;
         if(endPlace-i>2){
@@ -476,5 +446,80 @@ public class Demo1 {
            index=checkDown(gem,i,j);
         }
         return index;
+    }
+
+    private void delay(final int i, final int j, final int endPlace, final Gem[][] gem, int num) {
+        //then change the image again
+        //fall from top
+        final int begin = j;
+        final int x = i;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                gem[x][begin].setPic("/assets/boom.png");
+                gem[x][begin].display();
+                System.out.println("gem1");
+            }
+        }, 100);
+        num--;
+        if(num > 0){
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    gem[x][begin+1].setPic("/assets/boom.png");
+                    gem[x][begin+1].display();
+                    System.out.println("gem2");
+                }
+            }, 200);
+        }
+        num--;
+        if(num > 0){
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    gem[x][begin+2].setPic("/assets/boom.png");
+                    gem[x][begin+2].display();
+                    System.out.println("gem3");
+                }
+            }, 300);
+        }
+        num--;
+        if(num > 0){ // means eliminate 4 gems
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    gem[x][begin+3].setPic("/assets/boom.png");
+                    gem[x][begin+3].display();
+                    System.out.println("gem4");
+                }
+            }, 400);
+        }
+        num--;
+        if(num > 0){ // means elimation 5 gems
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    gem[x][begin+4].setPic("/assets/boom.png");
+                    gem[x][begin+4].display();
+                    System.out.println("gem5");
+                }
+            }, 500);
+        }
+
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run() {
+                Random rand = new Random();
+                for(int start = j; start < endPlace; start++){
+                    for(int v=i;v>0;v--){
+                        gem[v][start] = new Gem(gem[v-1][start].getPic(), v,start);
+                    }
+                    gem[0][start] = new Gem("/assets/"+ (rand.nextInt(7)+1) + ".png", 0,start);
+                }
+            }
+        }, 600);
+        
+                
     }
 }
